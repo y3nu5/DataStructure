@@ -1,111 +1,92 @@
 package linkedlist;
-import java.util.EmptyStackException;
+package com.example;
 
-class Node {
-    private Node next;
-    private char value;
 
-    public Node(char value){
-        this.next = null;
+class Node<T> {
+    private T value;
+    private Node<T> next;
+
+    public Node(T value) {
         this.value = value;
+        this.next = null;
     }
 
-    public Node getNext(){
-        return next;
-    }
-
-    public void setNext(Node next){
+    public void setNext(Node<T> next) {
         this.next = next;
     }
 
-    public char getValue(){
-        return value;
+    public Node<T> getNext(){
+        return next;
     }
 
-    public void setValue(char value){
-        this.value = value;
+    public T getValue() {
+        return value;
     }
 }
 
-class Stack {
-    private Node top;
-    private int size;
+class Stack<T> {
+    private Node<T> first;
 
     public Stack(){
-        this.top = null;
-        this.size = 0;
+        this.first = null;
     }
 
-    public void push(char value) {
-        Node newnode = new Node(value);
-        newnode.setNext(this.top);
-        this.top = newnode;
-        this.size++;
+    public void push(T value) {
+        Node<T> newNode = new Node<>(value);
+        newNode.setNext(first); // Set node baru untuk menunjuk ke node teratas saat ini
+        first = newNode; // Update 'top' untuk menjadi node baru
     }
 
-    public char pop(){
-        if(this.top == null){
-            throw new EmptyStackException();
+    public boolean hasPop() {
+        if (first != null) {
+            System.out.println("Stack tidak kosong!");
+            return true;
+        } else {
+            System.out.println("Stack Kosong!");
+            return false;
         }
-        char value = this.top.getValue();
-        this.top = this.top.getNext();
-        this.size--;
-        return value;
     }
 
-    public char peek(){
-        if(this.top == null){
-            throw new EmptyStackException();
+    public T pop() {
+        if(first == null) {
+            System.out.println("Stack Kosong Tidak Dapat Menghapus Elemen");
+            return null; // Mengembalikan null untuk tipe generik
+        } else {
+            Node<T> currentNode = first;
+            T poppedValue = currentNode.getValue();
+            first = currentNode.getNext();
+            return poppedValue;
         }
-        return this.top.getValue();
     }
 
-    public boolean isEmpty(){
-        return this.size == 0;
-    }
-
-    public int size(){
-        return this.size;
-    }
-
-    public void swap() {
-        if (this.size < 2) {
-            throw new IllegalStateException("Stack must have at least two elements to swap");
+    public void printList() {
+        Node<T> currentNode = first;
+        
+        while (currentNode != null) {
+            System.out.print(" <- " + currentNode.getValue());
+            currentNode = currentNode.getNext();
         }
-
-        char first = pop();
-        char second = pop();
-
-        push(first);
-        push(second);
-    }
-
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        Node current = top;
-        while (current != null) {
-            sb.append(current.getValue()).append(" ");
-            current = current.getNext();
-        }
-        return sb.toString().trim();
+        System.out.println();
+        System.out.println("-------------------------------");
     }
 }
 
 public class Main {
     public static void main(String[] args) {
-        Stack stack = new Stack();
-        stack.push('a');
-        stack.push('b');
-        stack.push('c');
-        stack.push('d');
-        stack.push('e');
-        System.out.println("Original stack: " + stack);
-        stack.swap();
-        System.out.println("After swap: " + stack);
-        System.out.println("Top element: " + stack.peek());
-        System.out.println("Popped element: " + stack.pop());
-        System.out.println("Top element after pop: " + stack.peek());
-        System.out.println("Stack size: " + stack.size());
+        Stack<Integer> dataInt = new Stack<>();
+        Stack<Character> dataChar = new Stack<>();
+
+        dataInt.pop(); // Seharusnya menggunakan stackInt, bukan list
+        dataInt.hasPop();
+        dataInt.printList();
+
+        dataInt.push(1);
+        dataInt.push(2);
+        dataInt.push(3);
+        dataInt.hasPop();
+        dataInt.printList(); 
+
+        dataInt.pop();
+        dataInt.printList();
     }
 }
