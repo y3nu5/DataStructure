@@ -3,9 +3,9 @@ import java.util.EmptyStackException;
 
 class Node {
     private Node next;
-    private int value;
+    private char value;
 
-    public Node(int value){
+    public Node(char value){
         this.next = null;
         this.value = value;
     }
@@ -18,11 +18,11 @@ class Node {
         this.next = next;
     }
 
-    public int getValue(){
+    public char getValue(){
         return value;
     }
 
-    public void setValue(int value){
+    public void setValue(char value){
         this.value = value;
     }
 }
@@ -36,24 +36,24 @@ class Stack {
         this.size = 0;
     }
 
-    public void push(int value) {
+    public void push(char value) {
         Node newnode = new Node(value);
         newnode.setNext(this.top);
         this.top = newnode;
         this.size++;
     }
 
-    public int pop(){
+    public char pop(){
         if(this.top == null){
             throw new EmptyStackException();
         }
-        int value = this.top.getValue();
+        char value = this.top.getValue();
         this.top = this.top.getNext();
         this.size--;
         return value;
     }
 
-    public int peek(){
+    public char peek(){
         if(this.top == null){
             throw new EmptyStackException();
         }
@@ -73,11 +73,9 @@ class Stack {
             throw new IllegalStateException("Stack must have at least two elements to swap");
         }
 
-        // Pop the top two elements
-        int first = pop();
-        int second = pop();
+        char first = pop();
+        char second = pop();
 
-        // Push them back in reversed order
         push(first);
         push(second);
     }
@@ -97,11 +95,11 @@ class Stack {
 public class Main {
     public static void main(String[] args) {
         Stack stack = new Stack();
-        stack.push(8);
-        stack.push(4);
-        stack.push(5);
-        stack.push(6);
-        stack.push(7);
+        stack.push('a');
+        stack.push('b');
+        stack.push('c');
+        stack.push('d');
+        stack.push('e');
         System.out.println("Original stack: " + stack);
         stack.swap();
         System.out.println("After swap: " + stack);
