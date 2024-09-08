@@ -92,6 +92,16 @@ class Stack {
     }
 }
 
+public class Queue extends Stack{
+    public void enqueue(int value) {
+        push (value) ;
+    }
+public int dequeue() {
+        if (hashpop()) {
+            System.out.println("Queue is empty.");
+            return -1;
+        }
+
 public class Main {
     public static void main(String[] args) {
         Stack stack = new Stack();
